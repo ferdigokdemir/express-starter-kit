@@ -2,10 +2,10 @@ import bodyParser from "body-parser";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { createConnection } from "typeorm";
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
-import mongoose from "mongoose";
 import "reflect-metadata";
 import responseTime from "response-time";
 import users from "./routes/users";
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 4242;
 
 (async () => {
   try {
-    mongoose.connect( process.env.DATABASE_URI || "", { useNewUrlParser: true });
+    await createConnection();
     const app = express();
 
     app.use(helmet());
